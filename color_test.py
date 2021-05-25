@@ -15,7 +15,7 @@ class TestLine:
 
         assert color.fix_line(simple_line) == fixed_simple_line
 
-    def test_comlex_fix(self):
+    def test_complex_fix(self):
         complex_line = "love.graphics.setColor(255, 255, some_color, 255)"
         fixed_complex_line = "love.graphics.setColor(1.0, 1.0, "
         "some_color, 255)"
