@@ -20,4 +20,6 @@ class TestLine:
         fixed_complex_line = "love.graphics.setColor(1.0, 1.0, "
         "some_color, 255)"
 
+        assert color.fix_line(complex_line) == fixed_complex_line
+
 
