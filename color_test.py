@@ -22,4 +22,12 @@ class TestLine:
 
         assert color.fix_line(complex_line) == fixed_complex_line
 
+class TestNumber:
+    def test_fix_number(self):
+        numbers = ('255', '0', '128')
+        fixed_numbers = (' 1.00', ' 0.00', ' 0.50')
+
+        for number, fixed_number in zip(numbers, fixed_numbers):
+            assert color.fix_number(number) == fixed_number
+
 

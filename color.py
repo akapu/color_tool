@@ -41,16 +41,6 @@ def fix_number(number):
 
 def main():
     """Entry point"""
-    #fix line testing
-    NO_FIX_LINE = "love.graphics.draw(gTextures['background'], backgroundX, 0)"
-    assert fix_line(NO_FIX_LINE) == NO_FIX_LINE
-    
-    SIMPLE_LINE = 'love.graphics.setColor(255, 255, 255, 255)'
-    FIXED_SIMPLE_LINE = 'love.graphics.setColor(1.0, 1.0, 1.0, 1.0)'
-    assert fix_line(SIMPLE_LINE) == FIXED_SIMPLE_LINE
-
-    #fix_number testing
-    assert fix_number('255') == ' 1.0'
 
 if __name__ == '__main__':
     main()
