@@ -37,7 +37,8 @@ def fix_line(line):
     return line
 
 def fix_number(number):
-    return number
+    fixed_number = int(number) / 255
+    return f" {fixed_number:.2f}"
 
 def main():
     """Entry point"""
