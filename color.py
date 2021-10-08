@@ -19,6 +19,8 @@ def fix_line(line):
     if first == -1:
         return line
 
+    first += len(LEFT)
+
     last = line.find(RIGHT, first)
 
     arguments = line[first:last].split(DELIMITER)
@@ -29,12 +31,28 @@ def fix_line(line):
             break
         digit_args_counter += 1
 
+    if not digit_args_counter:
+        return line
+
     arguments_fixed = []
     for i in range(digit_args_counter):
         arguments_fixed.append(fix_number(arguments[i]))
 
+    arguments_fixed[0] = arguments_fixed[0].strip()
 
-    return line
+    fixed_line = line[:first]
+
+    for arg in arguments_fixed:
+        fixed_line += arg + ','
+
+    for arg in arguments[digit_args_counter:]:
+        fixed_line += arg + ','
+
+    fixed_line = fixed_line[:-1]
+
+    fixed_line += line[last:]
+
+    return fixed_line
 
 def fix_number(number):
     fixed_number = int(number) / 255

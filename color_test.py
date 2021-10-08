@@ -11,14 +11,14 @@ class TestLine:
 
     def test_simple_fix(self):
         simple_line = "love.graphics.setColor(255, 255, 255, 255)"
-        fixed_simple_line = "love.graphics.setColor(1.0, 1.0, 1.0, 1.0)"
+        fixed_simple_line = "love.graphics.setColor(1.00, 1.00, 1.00, 1.00)"
 
         assert color.fix_line(simple_line) == fixed_simple_line
 
     def test_complex_fix(self):
         complex_line = "love.graphics.setColor(255, 255, some_color, 255)"
-        fixed_complex_line = "love.graphics.setColor(1.0, 1.0, "
-        "some_color, 255)"
+        fixed_complex_line = ("love.graphics.setColor(1.00, 1.00, "
+                "some_color, 255)")
 
         assert color.fix_line(complex_line) == fixed_complex_line
 
