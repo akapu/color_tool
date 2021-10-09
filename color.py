@@ -58,6 +58,11 @@ def fix_number(number):
     fixed_number = int(number) / 255
     return f" {fixed_number:.2f}"
 
+def fix_file(filename):
+    with open(filename) as infile:
+        for line in infile:
+            yield fix_line(line)
+
 def main():
     """Entry point"""
 

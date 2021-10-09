@@ -30,4 +30,8 @@ class TestNumber:
         for number, fixed_number in zip(numbers, fixed_numbers):
             assert color.fix_number(number) == fixed_number
 
-
+class TestFile:
+    def test_file(self):
+        with open("test-out.lua") as outfile:
+            for line in color.fix_file("test.lua"):
+                assert line == outfile.readline()
