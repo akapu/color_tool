@@ -1,17 +1,11 @@
 """ Fixes most of plain setColor function's arguments
     (just integer numbers, not variables or function calls) """
 
+import os
+
 LEFT = 'love.graphics.setColor('
 RIGHT = ')'
 DELIMITER = ','
-
-def fix_color(filename):
-    fixed_file = []
-
-    with open(filename) as file:
-        for line in file:
-            line = fix_line(line)
-            fixed_file.append(line)
             
 def fix_line(line):
     first = line.find(LEFT)
@@ -62,6 +56,17 @@ def fix_file(filename):
     with open(filename) as infile:
         for line in infile:
             yield fix_line(line)
+
+def fix_folder(foldername):
+    os.mkdir(outfolder(foldername))
+
+def outfolder(foldername):
+    folders_list = foldername.split('/')
+    folders_list[0] = folders_list[0] + '-out'
+    
+    return '/'.join(folders_list)
+    
+
 
 def main():
     """Entry point"""

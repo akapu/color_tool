@@ -35,3 +35,15 @@ class TestFile:
         with open("test-out.lua") as outfile:
             for line in color.fix_file("test.lua"):
                 assert line == outfile.readline()
+
+class TestFolder:
+    def test_folder(self):
+        raise Exception()
+
+class TestFoldername:
+    def test_outfolder(self):
+        foldernames = ['a', 'a/', 'a/b/c']
+        outfoldernames = ['a-out', 'a-out/', 'a-out/b/c']
+
+        for foldername, outfoldername in zip(foldernames, outfoldernames):
+            assert color.outfolder(foldername) == outfoldername
