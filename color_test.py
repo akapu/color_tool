@@ -1,4 +1,5 @@
 import color
+import os
 
 class TestLine:
     def test_no_fix(self):
@@ -38,7 +39,8 @@ class TestFile:
 
 class TestFolder:
     def test_folder(self):
-        raise Exception()
+        color.fix_folder('test')
+        assert check_folder('test', 'test-out')
 
 class TestFoldername:
     def test_outfolder(self):
@@ -47,3 +49,24 @@ class TestFoldername:
 
         for foldername, outfoldername in zip(foldernames, outfoldernames):
             assert color.outfolder(foldername) == outfoldername
+
+def check_folder(left, right):
+    with os.scandir(left) as lefts:
+        with os.scandir(right) as rights:
+            lefts_names = {entity.name for entity in lefts}
+            rights_names = {entity.name for entity in rights}
+
+            if lefts_names != rights_names:
+                return False
+
+            sdirs = (sdir.name for sdir in rights if sdir.is_dir())
+
+            for sdir in sdirs:
+                nleft = left + '/' + sdir
+                nright = right + '/' + sdir
+                if not check_folder(nleft, nright):
+                    return False
+
+            return True
+
+
