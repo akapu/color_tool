@@ -45,7 +45,7 @@ class TestFolder:
 class TestFoldername:
     def test_outfolder(self):
         foldernames = ['a', 'a/', 'a/b/c']
-        outfoldernames = ['a-out', 'a-out/', 'a-out/b/c']
+        outfoldernames = ['a-out', 'a-out', 'a-out/b/c']
 
         for foldername, outfoldername in zip(foldernames, outfoldernames):
             assert color.outfolder(foldername) == outfoldername

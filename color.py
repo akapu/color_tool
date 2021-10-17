@@ -2,6 +2,7 @@
     (just integer numbers, not variables or function calls) """
 
 import os
+import pathlib
 
 LEFT = 'love.graphics.setColor('
 RIGHT = ')'
@@ -58,15 +59,23 @@ def fix_file(filename):
             yield fix_line(line)
 
 def fix_folder(foldername):
-    os.mkdir(outfolder(foldername))
+    outfoldername = outfolder(foldername)
+    os.mkdir(outfoldername)
+
+    with os.scandir(foldername) as folder:
+        for entity in folder:
+            if entity.is_file() and entity.name[-4:] == '.lua':
+                with open(os.path.join(outfoldername, entity.name), 'w') as outfile:
+                    for line in fix_file(os.path.join(foldername, entity.name)): 
+                        outfile.write(line)
+            if entity.is_dir():
+                fix_folder(os.path.join(foldername, entity.name))
 
 def outfolder(foldername):
-    folders_list = foldername.split('/')
+    folders_list = list(pathlib.PurePath(foldername).parts)
     folders_list[0] = folders_list[0] + '-out'
     
     return '/'.join(folders_list)
-    
-
 
 def main():
     """Entry point"""
