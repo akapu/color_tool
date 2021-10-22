@@ -2,26 +2,33 @@ import color
 import os
 
 class TestLine:
-    def test_no_fix(self):
+    def test_no_fix(self, capsys):
         no_fix_lines = ("love.graphics.draw(gTextures['background'], "
                 "backgroundX, 0)",
                 "love.graphics.setColor(some_color, 255, 255, 255)")
+        statuses = ('ok\n', 'ok\n', 'warning\n')
 
-        for line in no_fix_lines:
+        for line, status in zip(no_fix_lines, statuses):
             assert color.fix_line(line) == line
+            captured = capsys.readouterr()
+            assert captured.out == status
 
-    def test_simple_fix(self):
+    def test_simple_fix(self, capsys):
         simple_line = "love.graphics.setColor(255, 255, 255, 255)"
         fixed_simple_line = "love.graphics.setColor(1.00, 1.00, 1.00, 1.00)"
 
         assert color.fix_line(simple_line) == fixed_simple_line
+        captured = capsys.readouterr()
+        assert captured.out == 'ok\n'
 
-    def test_complex_fix(self):
+    def test_complex_fix(self, capsys):
         complex_line = "love.graphics.setColor(255, 255, some_color, 255)"
         fixed_complex_line = ("love.graphics.setColor(1.00, 1.00, "
                 "some_color, 255)")
 
         assert color.fix_line(complex_line) == fixed_complex_line
+        captured = capsys.readouterr()
+        assert captured.out == 'warning\n'
 
 class TestNumber:
     def test_fix_number(self):
