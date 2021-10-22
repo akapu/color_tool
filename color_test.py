@@ -6,7 +6,7 @@ class TestLine:
         no_fix_lines = ("love.graphics.draw(gTextures['background'], "
                 "backgroundX, 0)",
                 "love.graphics.setColor(some_color, 255, 255, 255)")
-        statuses = ('ok\n', 'ok\n', 'warning\n')
+        statuses = ('ok\n', 'warning\n')
 
         for line, status in zip(no_fix_lines, statuses):
             assert color.fix_line(line) == line

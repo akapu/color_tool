@@ -12,6 +12,7 @@ def fix_line(line):
     first = line.find(LEFT)
 
     if first == -1:
+        print('ok')
         return line
 
     first += len(LEFT)
@@ -25,6 +26,11 @@ def fix_line(line):
         if not arg.strip().isdigit():
             break
         digit_args_counter += 1
+
+    if digit_args_counter < len(arguments):
+        print('warning')
+    else:
+        print('ok')
 
     if not digit_args_counter:
         return line
