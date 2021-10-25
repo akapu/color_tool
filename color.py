@@ -60,8 +60,15 @@ def fix_number(number):
     return f" {fixed_number:.2f}"
 
 def fix_file(filename):
+    print(filename)
+
     with open(filename) as infile:
+        counter = 1
+
         for line in infile:
+            print(counter, end=' ')
+            counter += 1
+
             yield fix_line(line)
 
 def fix_folder(foldername):
